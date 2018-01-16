@@ -1,6 +1,9 @@
 function fib = iterativeFibonacci(n)
+  % Setup initial values for fibonacci numbers as a two dimensional vector.
   numbers = [0 1];
 
+  % Reassign given n as we need to take into account that octave vectors
+  % are indexed from 1, rather than 0.
   n = n + 1;
   
   if n > 2
@@ -9,5 +12,6 @@ function fib = iterativeFibonacci(n)
     end
   end
 
+  % Return last element of vector v
   fib = numbers(:, n);
 end
