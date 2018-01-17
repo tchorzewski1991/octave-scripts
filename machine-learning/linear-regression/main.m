@@ -16,11 +16,12 @@
 % Extract training/test data for future model examination.
 %
 % training_test_threshold - represents the percentage ratio of training
-% data to test data.
+%                           data to test data.
 %
 % training_data - data that we use to train model.
 %
-% test_data - data that we use to test overall accuracy of the model.
+% test_data - data that we will use to test overall accuracy of the
+%             trainedmodel.
 %
   training_test_threshold = 0.75;
 
@@ -34,17 +35,19 @@
 
 % Extract features/labels with matrix specific operations.
 %
-% X - represents matrix (vector in case of univariate linear regression)
-%     with m x n dimensions, where:
-%     m - is total numbers of training examples
-%     n - refers to each unique property (independent feature) of
-%         examined entity (e.x size of hause)
+% X - is a matrix, that represents combination of training examples and
+%     their associated features (vector in case of univariate linear
+%     regression). It contains m x n dimensions, where:
+%     m - is the total number of training examples
+%     n - is the total number of unique properties
+%         (independent features) of examined entity
+%         (e.x size of hause)
 %
-% y - represents vector with m x 1 dimensions where each dimension
-%     refers to actual label value for our independent feature
-%     (e.x price of house for training example)
+% y - is a vector with m x 1 dimensions where each dimension
+%     refers to actual label value for corresponding training
+%     example (e.x price of house)
 %
-% Note: Dimensions for X, y matricies are resolved dynamically
+% Note: Dimensions for X, y matricies are resolved dynamically,
 %       so it will be possible to compute not only univariate, but
 %       also multivariate linear regression.
 
@@ -57,7 +60,7 @@
   % We don't need temp any more.
   clear temp;
 
-% Creates plot with markers to better visualise actual data distribution.
+% Create plot with markers to better visualise actual data distribution.
 % Unfortunately this step always appears problematic for distributions
 % with more than 2 input properties, so I decided to leave it in case of
 % modeling multivariate linear regressions.
