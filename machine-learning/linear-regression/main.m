@@ -67,8 +67,8 @@
 
 if !(size(X, 2) > 2)
   labels = [
-    'Size of a house in squared ft';
-    'Price of a house in 1,000$'
+    'Size of a house in 1,000(ft^2)';
+    'Price of a house in 1,000($)'
   ];
 
   % Type 'help plot' in octave console for more reference about available
