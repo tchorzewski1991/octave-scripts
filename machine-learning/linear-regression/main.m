@@ -71,7 +71,9 @@ if !(size(X, 2) > 2)
     'Price of a house in 1,000$'
   ];
 
-  plotData(X, y, labels);
+  % Type 'help plot' in octave console for more reference about available
+  % formatting for two-dimenisional plots. (e.x 'rx' annotates red crosses.)
+  plotData(X, y, labels, 'rx');
 
   % Prevent figure from closing to allow for adding another plot in the
   % future. In case of univariate linear regression we will want to show
