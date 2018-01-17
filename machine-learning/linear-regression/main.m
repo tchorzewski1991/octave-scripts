@@ -56,3 +56,22 @@
 
   % We don't need temp any more.
   clear temp;
+
+% Creates plot with markers to better visualise actual data distribution.
+% Unfortunately this step always appears problematic for distributions
+% with more than 2 input properties, so I decided to leave it in case of
+% modeling multivariate linear regressions.
+
+if !(size(X, 2) > 2)
+  labels = [
+    'Size of a house in squared ft';
+    'Price of a house in 1,000$'
+  ];
+
+  plotData(X, y, labels);
+
+  % Prevent figure from closing to allow for adding another plot in the
+  % future. In case of univariate linear regression we will want to show
+  % best possible fit line resolved by our model.
+  hold on;
+end
