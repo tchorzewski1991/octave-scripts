@@ -20,7 +20,7 @@
 %
 % training_data - data that we use to train model.
 %
-% test_data - data that we use to test overall accuracy of the model
+% test_data - data that we use to test overall accuracy of the model.
 %
   training_test_threshold = 0.75;
 
@@ -31,3 +31,28 @@
   test_data = data(
     (ceil(size(data, 1) * training_test_threshold):size(data, 1)), :
   );
+
+% Extract features/labels with matrix specific operations.
+%
+% X - represents matrix (vector in case of univariate linear regression)
+%     with m x n dimensions, where:
+%     m - is total numbers of training examples
+%     n - refers to each unique property (independent feature) of
+%         examined entity (e.x size of hause)
+%
+% y - represents vector with m x 1 dimensions where each dimension
+%     refers to actual label value for our independent feature
+%     (e.x price of house for training example)
+%
+% Note: Dimensions for X, y matricies are resolved dynamically
+%       so it will be possible to compute not only univariate, but
+%       also multivariate linear regression.
+
+  temp = size(training_data, 2);
+
+  X = training_data(:, 1:(temp - 1));
+  y = training_data(:, temp);
+  m = size(X, 1);
+
+  % We don't need temp any more.
+  clear temp;
