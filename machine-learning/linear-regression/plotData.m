@@ -15,8 +15,11 @@ function plotData(x, y,
   xlabel(labels(1, :));
   ylabel(labels(2, :));
 
-  % Resolve axis automatically.
-  axis('auto');
+  % Resolve axis dynamically.
+  x_axis_ranges = [ 0.75 * min(x(:, 1)) 1.25 * max(x(:, 1)) ];
+  y_axis_ranges = [ 0.75 * min(y(:, 1)) 1.25 * max(y(:, 1)) ];
+
+  axis([ x_axis_ranges y_axis_ranges]);
 
   box off;
 end
