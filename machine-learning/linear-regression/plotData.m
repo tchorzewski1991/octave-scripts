@@ -4,7 +4,7 @@ function plotData(x, y,
   )
   
   % Initializes empty figure.
-  figure;
+  % figure;
 
   % Creates plot for data.
   % Formatting for plot is customisable.
