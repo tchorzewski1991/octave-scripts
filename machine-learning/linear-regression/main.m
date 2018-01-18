@@ -76,6 +76,12 @@
   % We don't need temp any more.
   clear temp;
 
+  % Expands actual feature matricies with intercept term to apply
+  % correctly normal-equation and gradient-descent techniques.
+  % This step refers to creating design matricies.
+  dtr_X = [ones(tr_m, 1) tr_X];
+  dte_X = [ones(te_m, 1) te_X];
+
 % ========================================================================
 % Creating plots to visualise data is very important step to understanding
 % what is the problem which we stand in front of.
@@ -105,11 +111,6 @@ if !(size(tr_X, 2) > 2)
   % want to show best possible fit line resolved by normal equation and
   % gradient descent.
   hold on;
-
-  % Expands actual feature matricies with intercept term to apply correctly
-  % normal-equation and gradient-descent techniques.
-  dtr_X = [ones(tr_m, 1) tr_X];
-  dte_X = [ones(te_m, 1) te_X];
 
   % Compute parameter vector theta analytically with Normal Equation.
   % The Normal Equation solution is based on least squared solution
