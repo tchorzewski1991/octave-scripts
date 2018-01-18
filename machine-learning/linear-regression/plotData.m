@@ -3,14 +3,15 @@ function plotData(x, y,
     opts = ['rx';]
   )
   
-  % Set empty figure.
+  % Initializes empty figure.
   figure;
 
-  % Create plot with additional 'rx' option which annotates
-  % we want points visible as red crosses.
+  % Creates plot for data.
+  % Formatting for plot is customisable.
   plot(x, y, opts(1, :));
   
-  % Set descriptive labels.
+  % Sets descriptive labels.
+  % Labels for plot are customisable.
   xlabel(labels(1, :));
   ylabel(labels(2, :));
 
