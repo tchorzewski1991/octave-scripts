@@ -118,6 +118,12 @@ iterations = 50;
 % reasons fastest convergence.
 alphas = [0.01 0.03 0.1 0.3];
 
+% Sets empty figure for plot of cost function J to number of
+% iterations.
+figure;
+
+colors = ['k' 'r' 'g' 'b'];
+
 % Runs gradient descent algorithm for each learning rate alpha
 % to resolve which is suited best for fastest convergence.
 for i = 1:size(alphas, 2)
@@ -125,8 +131,20 @@ for i = 1:size(alphas, 2)
     dtr_X, tr_y, theta, alphas(1, i), iterations
   );
 
+  plot(1:numel(J_history), J_history, colors(1, i), 'LineWidth', 1);
+
   hold on;
 end
+
+% Sets descriptive labels.
+xlabel('Number of iterations');
+ylabel('Cost function J');
+
+% Adds necessary metrics for 'cost - iterations' plot.
+legend('alpha - 0.01', 'alpha - 0.03', 'alpha - 0.1', 'alpha - 0.3');
+
+% Saves plot of 'cost - iterations' for future analyze.
+print -dpng './images/cost_iterations_gradient_descent.png'
 
 % ========================================================================
 
