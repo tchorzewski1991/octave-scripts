@@ -79,4 +79,8 @@ if !(size(X, 2) > 2)
   % future. In case of univariate linear regression we will want to show
   % best possible fit line resolved by our model.
   hold on;
+
+  % Expands actual feature matrix with intercept term to apply correctly
+  % normal-equation and gradient-descent techniques.
+  dX = [ones(m, 1) X];
 end
