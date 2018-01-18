@@ -95,6 +95,41 @@ theta_from_normal_equation = normalEquation(dtr_X, tr_y);
 
 % ========================================================================
 
+% Technique - Gradient Descent
+%
+% Computes parameter vector theta by Gradient Descent.
+% The Gradient Descent is an iterative optimization algorithm. That is
+% to say, it finds a local minimum of a function by repeadly taking steps
+% proportional to the negative of the gradient of the function at the
+% current point. Intuitively we can think of this as taking steps in
+% direction of steepest decent.
+
+% Sets initial values for parameter vector theta.
+theta = zeros((size(dtr_X, 2)), 1);
+
+% Sets initial number of iterations.
+% This value is customisable. It should be suited and adjusted due
+% to analyzing plot of cost function J and related number of iterations.
+iterations = 50;
+
+% Alpha refers to learning rate which is a gradient descent internal
+% parameter. The best practise is to keep it in logarithmic scale and
+% run your gradient for different values of alpha to choose one that
+% reasons fastest convergence.
+alphas = [0.01 0.03 0.1 0.3];
+
+% Runs gradient descent algorithm for each learning rate alpha
+% to resolve which is suited best for fastest convergence.
+for i = 1:size(alphas, 2)
+  [theta_from_gradient_descent, J_history] = gradientDescent(
+    dtr_X, tr_y, theta, alphas(1, i), iterations
+  );
+
+  hold on;
+end
+
+% ========================================================================
+
 % Creating plots to visualise data is very important step to understanding
 % what is the problem which we stand in front of.
 % Unfortunately this step always appears problematic for distributions
