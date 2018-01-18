@@ -83,6 +83,18 @@
   dte_X = [ones(te_m, 1) te_X];
 
 % ========================================================================
+
+% Technique - Normal Equation
+%
+% Compute parameter vector theta analytically with Normal Equation.
+% The Normal Equation solution is based on least squared solution
+% for linear regression and it tends to be very effective, especially
+% in case where we have small amount of featues.
+% https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)
+theta_from_normal_equation = normalEquation(dtr_X, tr_y);
+
+% ========================================================================
+
 % Creating plots to visualise data is very important step to understanding
 % what is the problem which we stand in front of.
 % Unfortunately this step always appears problematic for distributions
@@ -111,13 +123,6 @@ if !(size(tr_X, 2) > 2)
   % want to show best possible fit line resolved by normal equation and
   % gradient descent.
   hold on;
-
-  % Compute parameter vector theta analytically with Normal Equation.
-  % The Normal Equation solution is based on least squared solution
-  % for linear regression and it tends to be very effective, especially
-  % in case where we have small amount of featues.
-  % https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)
-  theta_from_normal_equation = normalEquation(dtr_X, tr_y);
 
   % Fit and plot line based on normal-equation parameters into training data.
   plot(tr_X, dtr_X * theta_from_normal_equation, 'b-');
