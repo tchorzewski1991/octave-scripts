@@ -10,20 +10,20 @@
 % Clear current workspace.
   clear ; close all; clc
 
-% Load all given data as a matrix.
+% Loads all given data as a matrix.
 % This is the place where you can provide your own data.
   data = load('data.dat');
 
 % ========================================================================
 
-% Extract training/test data for future model examination.
+% Extracts training/test data for future model feed/examination.
 %
 % training_test_threshold - represents the percentage ratio of training
 %                           data to test data.
 %
-% training_data - data that we will use to train the model.
+% training_data - examples that we will use to train the model.
 %
-% test_data - data that we will use to test overall accuracy of the
+% test_data - examples that we will use to test overall accuracy of the
 %             trained model.
 %
   training_test_threshold = 0.75;
@@ -38,7 +38,7 @@
 
 % ========================================================================
 
-% Extract features/labels with matrix specific operations.
+% Extracts features/labels with matrix specific operations.
 %
 % X - is a matrix, that represents combination of examples and their
 %     associated features (vector in case of univariate linear
@@ -56,7 +56,7 @@
 %       so it will be possible to compute not only univariate, but
 %       also multivariate linear regression.
 
-  % X, y, m for trainig data.
+  % Sets X, y, m for trainig data.
   temp = size(training_data, 2);
 
   tr_X = training_data(:, 1:(temp - 1));
@@ -66,7 +66,7 @@
   % We don't need temp any more.
   clear temp;
 
-  % X, y, m for test data.
+  % Sets X, y, m for test data.
   temp = size(test_data, 2);
 
   te_X = test_data(:, 1:(temp - 1));
@@ -76,9 +76,10 @@
   % We don't need temp any more.
   clear temp;
 
-  % Expands actual feature matricies with intercept term to apply
-  % correctly normal-equation and gradient-descent techniques.
-  % This step refers to creating design matricies.
+  % Expands actual feature matricies with intercept term.
+  % This step is also called as creation of 'design matricies'.
+  % It is essential to correctly implement normal-equation and
+  % gradient-descent techniques.
   dtr_X = [ones(tr_m, 1) tr_X];
   dte_X = [ones(te_m, 1) te_X];
 
@@ -86,30 +87,31 @@
 
 % Technique - Normal Equation
 %
-% Compute parameter vector theta analytically with Normal Equation.
+% Computes parameter vector theta analytically.
 % The Normal Equation solution is based on least squared solution
 % for linear regression and it tends to be very effective, especially
 % in case where we have small amount of featues.
 % https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)
+
 theta_from_normal_equation = normalEquation(dtr_X, tr_y);
 
 % ========================================================================
 
 % Technique - Gradient Descent
 %
-% Computes parameter vector theta by Gradient Descent.
+% Computes parameter vector theta iteratively.
 % The Gradient Descent is an iterative optimization algorithm. That is
 % to say, it finds a local minimum of a function by repeadly taking steps
 % proportional to the negative of the gradient of the function at the
-% current point. Intuitively we can think of this as taking steps in
-% direction of steepest decent.
+% current point. Intuitively we can think of this as repeadly taking steps
+% in direction of steepest decent.
 
 % Sets initial values for parameter vector theta.
 theta = zeros((size(dtr_X, 2)), 1);
 
 % Sets initial number of iterations.
 % This value is customisable. It should be suited and adjusted due
-% to analyzing plot of cost function J and related number of iterations.
+% to analyzing 'cost-iterations' plot.
 iterations = 50;
 
 % Alpha refers to learning rate which is a gradient descent internal
@@ -118,13 +120,12 @@ iterations = 50;
 % reasons fastest convergence.
 alphas = [0.01 0.03 0.1 0.3];
 
-% Sets empty figure for plot of cost function J to number of
-% iterations.
+% Sets empty figure for 'cost-iterations' plot.
 figure;
 
 colors = ['k' 'r' 'g' 'b'];
 
-% Runs gradient descent algorithm for each learning rate alpha
+% Runs gradient descent algorithm for each learning rate alpha,
 % to resolve which is suited best for fastest convergence.
 for i = 1:size(alphas, 2)
   [theta_from_gradient_descent, J_history] = gradientDescent(
@@ -136,14 +137,14 @@ for i = 1:size(alphas, 2)
   hold on;
 end
 
-% Sets descriptive labels.
+% Sets descriptive labels for 'cost-iterations' plot.
 xlabel('Number of iterations');
 ylabel('Cost function J');
 
-% Adds necessary metrics for 'cost - iterations' plot.
+% Adds necessary metrics for 'cost-iterations' plot.
 legend('alpha - 0.01', 'alpha - 0.03', 'alpha - 0.1', 'alpha - 0.3');
 
-% Saves plot of 'cost - iterations' for future analyze.
+% Saves 'cost-iterations' plot for future analyze.
 print -dpng './images/cost_iterations_gradient_descent.png'
 
 % ========================================================================
@@ -159,8 +160,9 @@ if !(size(tr_X, 2) > 2)
   % Type help 'subplot' in octave console to see more details.
   subplot(2,1,1);
 
-  % Labels for plotting training/test datasets are customisable.
-  % This is the place where you should customise them.
+  % Sets labels for plotting training/test datasets.
+  % This labels are customisable and this is the place where you can
+  % customise them.
   labels = [
     'Size of a house in 1,000(ft^2)';
     'Price of a house in 1,000($)'
@@ -177,10 +179,10 @@ if !(size(tr_X, 2) > 2)
   % gradient descent.
   hold on;
 
-  % Fits and plots line based on normal-equation parameters into training data.
+  % Plots line based on theta from normal-equation on training data.
   plot(tr_X, dtr_X * theta_from_normal_equation, 'b-');
 
-  % Fits and plots line based on gradient descent parameters into training data.
+  % Plots line based on theta from gradient descent on training data.
   plot(tr_X, dtr_X * theta_from_gradient_descent, 'g-');
 
   % Adds necessary metrics for legend on training subplot.
@@ -194,16 +196,16 @@ if !(size(tr_X, 2) > 2)
 
   hold on;
 
-  % Fits and plots line based on normal-equation parameters into test data.
+  % Plots line based on theta from normal-equation on test data.
   plot(te_X, dte_X * theta_from_normal_equation, 'b-');
 
-  % Fits and plots line based on gradient descent parameters into test data.
+  % Plots line based on theta from gradient descent on test data.
   plot(te_X, dte_X * theta_from_gradient_descent, 'g-');
 
   % Adds necessary metrics for legend on test subplot.
   legend('Test data', 'Normal equation', 'Gradient descent');
 
-  % Saves plot for univariate regression fit.
+  % Saves plot for univariate regression fitting from both techniques.
   print -dpng './images/univariate_fit.png' '-S800,600'
 end
 
