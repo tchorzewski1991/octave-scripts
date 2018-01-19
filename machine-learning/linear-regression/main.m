@@ -155,7 +155,7 @@ print -dpng './images/cost_iterations_gradient_descent.png'
 % modeling multivariate linear regressions.
 
 if !(size(tr_X, 2) > 2)
-  % Initialize subplot space to allow for multi figures co-existing.
+  % Initializes subplot space to allow for multi figures co-existing.
   % Type help 'subplot' in octave console to see more details.
   subplot(2,1,1);
 
@@ -166,34 +166,43 @@ if !(size(tr_X, 2) > 2)
     'Price of a house in 1,000($)'
   ];
 
-  % Plot training data distribution.
+  % Plots training data distribution.
   % Type 'help plot' in octave console for more reference about available
   % formatting for two-dimenisional plots. (e.x 'rx' annotates red crosses.)
   plotData(tr_X, tr_y, labels, 'rx', 'Training data');
 
-  % Prevent current figure from closing to allow for adding another plots
+  % Prevents current figure from closing to allow for adding another plots
   % in the future. In case of univariate linear regression we will
   % want to show best possible fit line resolved by normal equation and
   % gradient descent.
   hold on;
 
-  % Fit and plot line based on normal-equation parameters into training data.
+  % Fits and plots line based on normal-equation parameters into training data.
   plot(tr_X, dtr_X * theta_from_normal_equation, 'b-');
 
-  % Add necessary metrics for legend on training subplot.
-  legend('Training data', 'Normal equation fit');
+  % Fits and plots line based on gradient descent parameters into training data.
+  plot(tr_X, dtr_X * theta_from_gradient_descent, 'g-');
 
-  % Switch subplot slot to generate new figure on co-existing space.
+  % Adds necessary metrics for legend on training subplot.
+  legend('Training data', 'Normal equation', 'Gradient descent');
+
+  % Switches subplot slot to generate new figure on co-existing space.
   subplot(2,1,2);
 
-  % Plot test data distribution.
+  % Plots test data distribution.
   plotData(te_X, te_y, labels, 'rx', 'Test data');
 
   hold on;
 
-  % Fit and plot line based on normal-equation parameters into test data.
+  % Fits and plots line based on normal-equation parameters into test data.
   plot(te_X, dte_X * theta_from_normal_equation, 'b-');
 
-  % Add necessary metrics for legend on test subplot.
-  legend('Test data', 'Normal equation fit');
+  % Fits and plots line based on gradient descent parameters into test data.
+  plot(te_X, dte_X * theta_from_gradient_descent, 'g-');
+
+  % Adds necessary metrics for legend on test subplot.
+  legend('Test data', 'Normal equation', 'Gradient descent');
+
+  % Saves plot for univariate regression fit.
+  print -dpng './images/univariate_fit.png' '-S800,600'
 end
