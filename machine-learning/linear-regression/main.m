@@ -276,9 +276,18 @@ end
 % Displays normal equation's result.
 fprintf('Theta computed from the normal equations: \n');
 fprintf(' %f \n', theta_from_normal_equation);
-fprintf('\n');
+fprintf('------------------------------------------\n');
 
 % Displays gradient descent result.
 fprintf('Theta computed from the gradient descent: \n');
 fprintf(' %f \n', theta_from_gradient_descent);
-fprintf('\n');
+fprintf('------------------------------------------\n');
+
+% Displays advanced gradient descent result.
+fprintf('Theta computed from the advanced gradient descent: \n');
+fprintf(' %f \n', theta_from_advenced_gradient_descent);
+fprintf('\n  Minimal cost: \n');
+fprintf('   %f \n', cost);
+fprintf('\n  Statistics: \n');
+  output
+fprintf('------------------------------------------\n');
