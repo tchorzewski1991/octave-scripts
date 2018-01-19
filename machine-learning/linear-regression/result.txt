@@ -1,0 +1,19 @@
+Theta computed from the normal equations:
+ 96.606003
+ 106.173371
+------------------------------------------
+Theta computed from the gradient descent:
+ 90.144980
+ 108.993174
+------------------------------------------
+Theta computed from the advanced gradient descent:
+ 96.606007
+ 106.173369
+
+  Minimal cost:
+   906.356854
+
+  Statistics:
+   Iterations =  25
+   Successful =  24
+   FuncCount =  48
