@@ -1,8 +1,19 @@
 % Linear Regression
 
 % Linear Regression refers to model for modeling relationship
-% between dependent variable y (frequently called as a target) and
-% one, or more explanatory input variables called features.
+% between dependent output variable y (frequently called as a 'target')
+% and one, or more explanatory variables or inputs called 'features'
+% as a linear function.
+
+% It turns out that linear dependency between input features and
+% expected dependent output is not the best reflection of the
+% 'real world' relationships. We call that as an example of
+% underfitting or a 'high bias'. It is really rare case that
+% linear model will generalize well on unseen data. It is always
+% better to invent higher order polynomial model and try to
+% regularize it. However, linear regression tends to be great
+% starting point for adventure with machine learning.
+
 % See https://en.wikipedia.org/wiki/Linear_regression for more reference.
 
 % ========================================================================
