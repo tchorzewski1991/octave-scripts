@@ -27,15 +27,17 @@
 
 % ========================================================================
 
-% Extracts training/test data for future model feed/examination.
+% Prepare training/test data for future model feed/examination.
 %
-% training_test_threshold - represents the percentage ratio of training
-%                           data to test data.
+% training_test_threshold -
+%   Represents the percentage ratio of training data to test data.
 %
-% training_data - examples that we will use to train the model.
+% training_data -
+%   Examples that we will use to train the model.
 %
-% test_data - examples that we will use to test overall accuracy of the
-%             trained model.
+% test_data -
+%   Examples that we will use to test overall accuracy of the
+%   trained model.
 %
   training_test_threshold = 0.75;
 
@@ -51,21 +53,24 @@
 
 % Extracts features/labels with matrix specific operations.
 %
-% X - is a matrix, that represents combination of examples and their
-%     associated features (vector in case of univariate linear
-%     regression). It contains m x n dimensions, where:
+% X -
+%   This is a matrix, that represents combination of examples and
+%   their associated features (vector in case of univariate linear
+%   regression). It contains m x n dimensions, where:
 %     m - is the total number of examples
 %     n - is the total number of unique properties
 %         (independent features) of examined entity
 %         (e.x size of hause)
 %
-% y - is a vector with m x 1 dimensions where each dimension
-%     refers to actual label value for corresponding example
-%     (e.x price of house)
+% y -
+%   This is a vector with m x 1 dimensions where each dimension
+%   refers to actual label value for corresponding example
+%   (e.x price of house)
 %
-% Note: Dimensions for X, y matricies are resolved dynamically,
-%       so it will be possible to compute not only univariate, but
-%       also multivariate linear regression.
+% Note:
+%   Dimensions for X, y matricies are resolved dynamically,
+%   so it will be possible to compute not only univariate, but
+%   also multivariate linear regression.
 
   % Sets X, y, m for trainig data.
   temp = size(training_data, 2);
@@ -88,7 +93,7 @@
   clear temp;
 
   % Expands actual feature matricies with intercept term.
-  % This step is also called as creation of 'design matricies'.
+  % This step is also called as creation of 'design matrix'.
   % It is essential to correctly implement normal-equation and
   % gradient-descent techniques.
   dtr_X = [ones(tr_m, 1) tr_X];
