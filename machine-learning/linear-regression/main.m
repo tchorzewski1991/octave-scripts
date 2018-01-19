@@ -165,6 +165,21 @@ print -dpng './images/cost_iterations_gradient_descent.png'
 
 % ========================================================================
 
+% Technique - Advanced Gradient Descent (BFGS, Conjugate)
+
+theta = zeros((size(dtr_X, 2)), 1);
+
+options = optimset('GradObj', 'on', 'MaxIter', 400);
+
+[theta_from_advenced_gradient_descent, cost, status, output] = ...
+  fminunc( ...
+    @(t)(advancedEvaluateCost(dtr_X, tr_y, t)),
+    theta,
+    options
+  );
+
+% ========================================================================
+
 % Creating plots to visualise data is very important step to understanding
 % what is the problem which we stand in front of.
 % Unfortunately this step always appears problematic for distributions
