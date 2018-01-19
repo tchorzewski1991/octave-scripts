@@ -167,9 +167,38 @@ print -dpng './images/cost_iterations_gradient_descent.png'
 
 % Technique - Advanced Gradient Descent (BFGS, Conjugate)
 
+% Computes parameter vector theta by solving an unconstrained
+% optimization problem defined by the given function.
+% It turns out, that Octave has built-in highly optimized function
+% called fminunc(), which can help us resolve problem of
+% minimization of our cost function in a very easily manner.
+% Type 'help fminunc' in octave console for more reference about
+% input parameters and return values.
+
+% Sets initial values for parameter vector theta.
 theta = zeros((size(dtr_X, 2)), 1);
 
+% Creates options structure for optimization functions.
+% Type 'help optimset' in octave console for more reference about
+% available options.
 options = optimset('GradObj', 'on', 'MaxIter', 400);
+
+% Calls fminunc() with:
+%   - anonymous function with one argument (Parameter vector
+%     theta will be inserted here when fminunc() call happens)
+%   - Initial value for parameter vector theta
+%   - Custom options structure
+%
+% Note:
+%   function result = add(fn, x)
+%     fn(x) + x
+%   end
+%
+%   add(@(x) x + 1, 1) => 3
+%
+%   @(argument-list) expression -
+%     Refers to the syntax for defining anonymous functions
+%     in octave.
 
 [theta_from_advenced_gradient_descent, cost, status, output] = ...
   fminunc( ...
