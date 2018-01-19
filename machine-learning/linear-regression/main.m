@@ -215,6 +215,10 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 % with more than 2 input properties, so I decided to leave it in case of
 % modeling multivariate linear regressions.
 
+% I decided to skip plots for linear fit resolved by advenced gradient
+% descent technique. It turns out that resolved parameters vector theta
+% is exactly the same as parameter vector from normal equation technique.
+
 if !(size(tr_X, 2) > 2)
   % Initializes subplot space to allow for multi figures co-existing.
   % Type help 'subplot' in octave console to see more details.
