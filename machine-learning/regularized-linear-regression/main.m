@@ -26,10 +26,22 @@
 
 % ========================================================================
 
+  % We would like to implement Model Selection Algorithm, so dividing
+  % our dataset is essential step. The mentioned algorithm refers to
+  % process of automated selection of regularization parameter lambda,
+  % as well, as the degree of polynomial, which describes data best.
+
+  % We need to extract three separate datasets:
+  %   - Trainig set.
+  %   - Cross-validation set.
+  %   - Test set.
+
   tr_X = []; tr_y = [];
   cv_X = []; cv_y = [];
   te_X = []; te_y = [];
 
+  % We want to implement training - cross-validation - test sets in
+  % relation 60% - 20% - 20%, so setting up correct divisor is required.
   divisor = 6
 
   for i = 1:(size(data, 1) / divisor)
@@ -37,7 +49,7 @@
     up   = i * divisor;
 
     for j = down:up
-      rowFeatures = data(j, 1);
+      rowData = data(j, 1);
       rowLabel    = data(j, 2);
 
       if j <= up - 2
