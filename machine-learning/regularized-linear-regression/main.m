@@ -67,10 +67,18 @@
 
 % ========================================================================
 
+  % Plotting data is always essential step to understand what is the
+  % problem which we stand in front of. Unfortunately it is quite hard
+  % to visualize data distribution in more then two-dimenisional vector
+  % space.
+
   if !(size(data, 2) > 2)
 
+    % Sets distinguishable styles for plots.
     styles  = ['rx'; 'kx'; 'bx'];
 
+    % Sets dictionary structure to keep all datasets accessible
+    % under one variable.
     dataTree = struct (
       'tr', struct (
         'features', tr_X, 'labels', tr_y, 'legend', 'Training set'
@@ -83,13 +91,17 @@
       )
     );
 
+    % Sets identifiers for accessing dataTree.
     identifiers = ['tr'; 'cv'; 'te'];
 
     for i = 1:length(identifiers)
+      % Switch specific slot on subplot space.
       subplot(3, 1, i);
 
+      % References to specific data from dataTree.
       node = dataTree.(identifiers(i, :));
 
+      % Calls function responsible for plotting specific data.
       plotDataDistribution( ...
         node.('features'),
         node.('labels'),
@@ -97,8 +109,11 @@
         styles(i, :)
       );
 
+      % Prevents current figure from closing to allow for adding another plots
+      % in future iterations.
       hold on;
 
+      % Saves image file with actual subplot space.
       if i == 3
         print('./images/data-distribution.png', '-S800,600');
       end
