@@ -42,7 +42,7 @@
 
   % We want to implement training - cross-validation - test sets in
   % relation 60% - 20% - 20%, so setting up correct divisor is required.
-  divisor = 6
+  divisor = 6;
 
   for i = 1:(size(data, 1) / divisor)
     down = i * divisor - (divisor - 1);
@@ -61,6 +61,46 @@
       else
         te_X = [te_X; rowData];
         te_y = [te_y; rowLabel];
+      end
+    end
+  end
+
+% ========================================================================
+
+  if !(size(data, 2) > 2)
+
+    styles  = ['rx'; 'kx'; 'bx'];
+
+    dataTree = struct (
+      'tr', struct (
+        'features', tr_X, 'labels', tr_y, 'legend', 'Training set'
+      ),
+      'cv', struct (
+        'features', cv_X, 'labels', cv_y, 'legend', 'Cross-v set'
+      ),
+      'te', struct (
+        'features', te_X, 'labels', te_y, 'legend', 'Test set'
+      )
+    );
+
+    identifiers = ['tr'; 'cv'; 'te'];
+
+    for i = 1:length(identifiers)
+      subplot(3, 1, i);
+
+      node = dataTree.(identifiers(i, :));
+
+      plotDataDistribution( ...
+        node.('features'),
+        node.('labels'),
+        node.('legend'),
+        styles(i, :)
+      );
+
+      hold on;
+
+      if i == 3
+        print('./images/data-distribution.png', '-S800,600');
       end
     end
   end
