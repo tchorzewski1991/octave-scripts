@@ -25,3 +25,32 @@
   data = load('data.dat');
 
 % ========================================================================
+
+  tr_X = []; tr_y = [];
+  cv_X = []; cv_y = [];
+  te_X = []; te_y = [];
+
+  divisor = 6
+
+  for i = 1:(size(data, 1) / divisor)
+    down = i * divisor - (divisor - 1);
+    up   = i * divisor;
+
+    for j = down:up
+      rowFeatures = data(j, 1);
+      rowLabel    = data(j, 2);
+
+      if j <= up - 2
+        tr_X = [tr_X; rowData];
+        tr_y = [tr_y; rowLabel];
+      elseif j == up - 1
+        cv_X = [cv_X; rowData];
+        cv_y = [cv_y; rowLabel];
+      else
+        te_X = [te_X; rowData];
+        te_y = [te_y; rowLabel];
+      end
+    end
+  end
+
+% ========================================================================
