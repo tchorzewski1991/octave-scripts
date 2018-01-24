@@ -156,15 +156,21 @@
   for i = 1:lambdasLength
     for j = 1:degree
 
+      % Produces training set values for higher order polynomial.
       poly_tr_X = producePolynomial(tr_X, tr_y, j);
 
+      % Normalizes training set values for higher order polynomial.
       [poly_tr_X, mu, sigma] = featureNormalize(poly_tr_X);
 
+      % Creates training set design matrix.
       poly_tr_X = designMatrix(poly_tr_X);
 
+      % Sets initial values for unconstrained optimization problem.
       lambda = lambdas(i, 1);
       theta = initialTheta(poly_tr_X);
 
+      % Calls fminunc() with initial values and annonymous function
+      % as a wrapper for regularized cost.
       [optTheta, cost, status] = ...
         fminunc(
           @(t)(regularizedCost(poly_tr_X, tr_y, t, lambda)),
@@ -172,15 +178,21 @@
           options
         );
 
+      % Produces cross-v set values for higher order polynomial.
       poly_cv_X = producePolynomial(cv_X, cv_y, j);
 
+      % Adjusts cross-v set values using sigma and mu parameters
+      % from training set normalization.
       poly_cv_X = bsxfun(@minus, poly_cv_X, mu);
       poly_cv_X = bsxfun(@rdivide, poly_cv_X, sigma);
 
+      % Creates cross-v set design matrix.
       poly_cv_X = designMatrix(poly_cv_X);
 
+      % Evaluates cross-v set cost for optimized parameters theta.
       cv_cost = evaluateCost(poly_cv_X, cv_y, optTheta);
 
+      % Assigns appropriate cost to position on lambda - degree histogram.
       histogramForLambdasDegreeCost(i, j) = cv_cost;
     end
   end
