@@ -137,3 +137,13 @@
   for i = 1:lambdasLength
     lambdas(i, :) = lambdas(i, :) .+ 2 ^ i / 100;
   end
+
+  degree = 8;
+
+  histogramForLambdasDegreeCost = zeros(lambdasLength, degree);
+
+  options = optimset('GradObj', 'on', 'MaxIter', 400);
+
+  designMatrix = @(data) ( [ ones(size(data, 1), 1), data ] );
+
+  initialTheta = @(data) ( zeros(size(data, 2), 1) );
