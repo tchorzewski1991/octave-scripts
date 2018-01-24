@@ -122,10 +122,17 @@
 
 % ========================================================================
 
+  % Model selection algorithm refers to the process of automatic choose
+  % for regularization parameter lambda and order of polynomial of our
+  % hypothesis.
+
+  % Sets range for different regularization parameters lambda.
   lambdas = zeros(20, 1);
 
   lambdasLength = length(lambdas);
 
+  % Iteration will cover set of 20 different values. Good practise is to
+  % use multiples of the number 0.02 up to some quite bigger value.
   for i = 1:lambdasLength
     lambdas(i, :) = lambdas(i, :) .+ 2 ^ i / 100;
   end
