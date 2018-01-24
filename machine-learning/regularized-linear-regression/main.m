@@ -121,3 +121,11 @@
   end
 
 % ========================================================================
+
+  lambdas = zeros(20, 1);
+
+  lambdasLength = length(lambdas);
+
+  for i = 1:lambdasLength
+    lambdas(i, :) = lambdas(i, :) .+ 2 ^ i / 100;
+  end
