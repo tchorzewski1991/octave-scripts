@@ -152,3 +152,35 @@
 
   % Sets annonymous function responsible for creating initial vector theta.
   initialTheta = @(data) ( zeros(size(data, 2), 1) );
+
+  for i = 1:lambdasLength
+    for j = 1:degree
+
+      poly_tr_X = producePolynomial(tr_X, tr_y, j);
+
+      [poly_tr_X, mu, sigma] = featureNormalize(poly_tr_X);
+
+      poly_tr_X = designMatrix(poly_tr_X);
+
+      lambda = lambdas(i, 1);
+      theta = initialTheta(poly_tr_X);
+
+      [optTheta, cost, status] = ...
+        fminunc(
+          @(t)(regularizedCost(poly_tr_X, tr_y, t, lambda)),
+          theta,
+          options
+        );
+
+      poly_cv_X = producePolynomial(cv_X, cv_y, j);
+
+      poly_cv_X = bsxfun(@minus, poly_cv_X, mu);
+      poly_cv_X = bsxfun(@rdivide, poly_cv_X, sigma);
+
+      poly_cv_X = designMatrix(poly_cv_X);
+
+      cv_cost = evaluateCost(poly_cv_X, cv_y, optTheta);
+
+      histogramForLambdasDegreeCost(i, j) = cv_cost;
+    end
+  end
