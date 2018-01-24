@@ -138,12 +138,17 @@
     lambdas(i, :) = lambdas(i, :) .+ 2 ^ i / 100;
   end
 
+  % Sets maximum value of degree for hypothesis polynomial.
   degree = 8;
 
+  % Sets initial histogram for current lambda - degree cost.
   histogramForLambdasDegreeCost = zeros(lambdasLength, degree);
 
+  % Sets options structure for specialized fminunc() function.
   options = optimset('GradObj', 'on', 'MaxIter', 400);
 
+  % Sets annonymous function responsible for creating design matrix.
   designMatrix = @(data) ( [ ones(size(data, 1), 1), data ] );
 
+  % Sets annonymous function responsible for creating initial vector theta.
   initialTheta = @(data) ( zeros(size(data, 2), 1) );
